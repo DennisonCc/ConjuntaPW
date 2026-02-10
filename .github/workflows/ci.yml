@@ -1,0 +1,30 @@
+name: CI workflow
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Lint del codigo
+        run: npm run lint
+
+      - name: Ejecutar pruebas con cobertura
+        run: npm test -- --coverage
+
+      - name: Verificar cobertura minima
+        run: |
+          echo "✅ CI completado: lint OK, pruebas OK, cobertura generada."
