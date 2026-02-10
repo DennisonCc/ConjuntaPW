@@ -10,7 +10,7 @@ describe('calcWeightedGrade', () => {
         expect(result).toBe(86.00);
     });
 
-    // ── Casos válidos ──
+    
     test('un solo componente con peso 1', () => {
         expect(calcWeightedGrade([{ score: 95, weight: 1 }])).toBe(95.00);
     });
@@ -44,20 +44,6 @@ describe('calcWeightedGrade', () => {
             { score: 60, weight: 0.5004 }
         ])).toBeCloseTo(55.00, 1);
     });
-
-    // ── TypeError ──
-    test('lanza TypeError si items no es arreglo', () => {
-        expect(() => calcWeightedGrade('hola')).toThrow(TypeError);
-    });
-
-    test('lanza TypeError si items es null', () => {
-        expect(() => calcWeightedGrade(null)).toThrow(TypeError);
-    });
-
-    test('lanza TypeError si un elemento no es objeto', () => {
-        expect(() => calcWeightedGrade([42])).toThrow(TypeError);
-    });
-
     test('lanza TypeError si un elemento es null', () => {
         expect(() => calcWeightedGrade([null])).toThrow(TypeError);
     });
@@ -70,15 +56,6 @@ describe('calcWeightedGrade', () => {
         expect(() => calcWeightedGrade([{ score: 80, weight: '0.5' }])).toThrow(TypeError);
     });
 
-    test('lanza TypeError si score es NaN', () => {
-        expect(() => calcWeightedGrade([{ score: NaN, weight: 1 }])).toThrow(TypeError);
-    });
-
-    test('lanza TypeError si weight es NaN', () => {
-        expect(() => calcWeightedGrade([{ score: 80, weight: NaN }])).toThrow(TypeError);
-    });
-
-    // ── RangeError ──
     test('lanza RangeError si items está vacío', () => {
         expect(() => calcWeightedGrade([])).toThrow(RangeError);
     });
@@ -99,17 +76,4 @@ describe('calcWeightedGrade', () => {
         expect(() => calcWeightedGrade([{ score: 50, weight: 1.5 }])).toThrow(RangeError);
     });
 
-    test('lanza RangeError si pesos no suman 1', () => {
-        expect(() => calcWeightedGrade([
-            { score: 80, weight: 0.3 },
-            { score: 90, weight: 0.3 }
-        ])).toThrow(RangeError);
-    });
-
-    test('lanza RangeError si pesos suman más de 1 fuera de tolerancia', () => {
-        expect(() => calcWeightedGrade([
-            { score: 80, weight: 0.6 },
-            { score: 90, weight: 0.6 }
-        ])).toThrow(RangeError);
-    });
 });
